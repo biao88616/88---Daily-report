@@ -24,7 +24,7 @@
     <script>
         const username = 'biao88616';
         const repo = '88---Daily-report';
-        const apiUrl = `https://github.com{username}/${repo}/contents/`;
+        const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
 
         fetch(apiUrl)
             .then(response => response.json())
