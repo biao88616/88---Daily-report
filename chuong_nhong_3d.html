@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chuồng nhồng Văn Sa &amp; Thị Bơ · Mô hình 3D</title>
+<style>
+:root{color-scheme:light;--ink:#172e2a;--muted:#4c625b;--paper:#fcfaf4;--line:#d9dfd4;--accent:#145f50;--soft:#e5eee5;--display:Georgia,serif;font-family:Inter,system-ui,sans-serif}*{box-sizing:border-box}body{margin:0;background:#f1f2e9;color:var(--ink)}button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,canvas:focus-visible{outline:2px solid #0b927c;outline-offset:3px}.shell{max-width:1600px;margin:auto;padding:24px 30px 16px}.mast{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:18px}.identity{display:flex;align-items:center;gap:13px}.mark{width:47px;height:47px;color:#fff;background:#164a40;display:grid;place-items:center;border-radius:14px;font-size:23px;flex:none}.eyebrow,.section-title,.stat dt{font-size:10px;font-weight:800;letter-spacing:.105em;text-transform:uppercase;color:var(--muted)}h1{font:500 clamp(25px,3.1vw,47px)/1.04 var(--display);margin:4px 0 0;letter-spacing:-.045em}.mast small{font-size:12px;color:var(--muted);text-align:right}.layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px}.stage{height:clamp(520px,calc(100dvh - 155px),950px);position:relative;overflow:hidden;border:1px solid #d3dbd1;border-radius:18px;background:radial-gradient(ellipse at 47% 40%,#faf9ec 2%,#e4ece4 75%,#d6e3db);isolation:isolate}.canvas{position:absolute;width:100%;height:100%;inset:0;touch-action:none;cursor:grab}.canvas.drag{cursor:grabbing}.canvas.hit:not(.drag){cursor:pointer}.measure{position:absolute;inset:0;pointer-events:none;width:100%;height:100%;z-index:1}.toolbar{position:absolute;top:14px;left:14px;right:14px;display:flex;gap:7px;align-items:center;flex-wrap:wrap;pointer-events:none;z-index:3}.toolbar>*{pointer-events:auto}.toolbar .grow{flex:1}.control{display:inline-flex;gap:6px;align-items:center;min-height:36px;border:1px solid #bfcfc3;border-radius:8px;padding:7px 10px;color:var(--ink);background:#fffdf5ee;font-size:12px;font-weight:650;white-space:nowrap}.control:hover{background:white;border-color:#71988a}.control[aria-pressed=true]{background:#174e43;color:white;border-color:#174e43}.stage-bottom{position:absolute;bottom:12px;left:14px;right:14px;display:flex;align-items:end;justify-content:space-between;gap:8px;pointer-events:none;z-index:2}.hint{background:#fffdf4df;border-radius:8px;padding:8px 10px;font-size:11px;color:#324d44}.fit{pointer-events:auto;font-size:15px}.tip{position:absolute;z-index:4;max-width:290px;pointer-events:none;color:#f9fff9;background:#153c34f5;border:1px solid #4b796a;border-radius:9px;box-shadow:0 5px 18px #1d3e3430;padding:9px 11px;font-size:12px;line-height:1.5}.tip b{display:block}.tip span{color:#cce9db}.side{background:var(--paper);height:clamp(520px,calc(100dvh - 155px),950px);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;min-width:0;overflow:hidden}.details{padding:16px 16px 13px;border-bottom:1px solid var(--line);flex:none}.section-title{margin:0 0 9px}.details h2{margin:0 0 4px;font:500 25px/1.04 var(--display);letter-spacing:-.035em}.description{margin:7px 0;color:var(--muted);font-size:12px;line-height:1.42}.source{font-size:10px;color:var(--muted);margin:8px 0 0}.isolate{margin-top:8px;min-height:27px;padding:4px 7px;font-size:10px}.stat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:11px 0 0}.stat>div{background:#e9eee3;border-radius:7px;padding:7px 6px}.stat dt{font-size:9px;letter-spacing:.03em}.stat dd{margin:3px 0 0;font-size:13px;font-weight:750;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.explore{padding:12px 12px 8px;overflow:auto;min-height:0;flex:1;scrollbar-width:thin}.explore>.section-title{margin-left:4px}.part{display:grid;grid-template-columns:9px 1fr auto;gap:7px;align-items:center;width:100%;padding:7px 6px;border:0;border-radius:6px;text-align:left;background:transparent;color:var(--ink);font-weight:620;font-size:12px}.part:hover,.part.active{background:#e4eee3}.part small{color:var(--muted);font-size:10px;text-align:right}.dot{width:8px;height:8px;border-radius:50%;background:var(--tone,#9b7756)}details.bucket{margin:0 0 2px;border-bottom:1px solid #e0e5da;padding:0 0 3px}summary{cursor:pointer;font-size:12px;font-weight:720;padding:6px 4px;color:#304e43}summary:hover{color:#087861}.actions{border-top:1px solid var(--line);padding:10px 12px;display:flex;flex-wrap:wrap;gap:6px}.actions .control{font-size:11px;padding:5px 8px;min-height:30px}.footer{font-size:11px;color:var(--muted);margin:11px 2px 0}.problem{position:absolute;inset:42% 10% auto;background:white;padding:16px;border-radius:10px}.compact{display:none}
+@media(max-width:830px){.shell{padding:14px 12px}.layout{grid-template-columns:1fr}.mast small{display:none}.stage{height:62dvh;min-height:420px;max-height:750px}.side{height:auto;max-height:none}.explore{max-height:370px}.mast{margin-bottom:12px}.mark{width:37px;height:37px;border-radius:11px}.toolbar{left:8px;right:8px;top:8px;gap:5px}.control{min-height:33px;padding:5px 7px;font-size:11px}.stage-bottom{left:8px;right:8px;bottom:8px}.hint{font-size:10px}.toolbar .grow{display:none}}
+@media(pointer:coarse){.hint .desktop{display:none}.hint .compact{display:inline}}
+@media(max-width:410px){.stage{min-height:380px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="mast"><div class="identity"><div class="mark" aria-hidden="true">⌂</div><div><div class="eyebrow">Mô hình tương tác 3D</div><h1>Chuồng nhồng Văn Sa &amp; Thị Bơ</h1></div></div><small>Gò Dầu, Tây Ninh<br>Bản vẽ ngày 14/11/2026</small></header>
+<main class="layout">
+<section class="stage" id="stage" aria-label="Khung xem mô hình 3D">
+<canvas class="canvas" id="scene" tabindex="0" aria-label="Mô hình 3D. Dùng phím mũi tên để xoay, dấu cộng và trừ để phóng thu."></canvas>
+<canvas class="measure" id="measure" aria-hidden="true"></canvas>
+<div class="toolbar">
+<select class="control" aria-label="Góc nhìn" id="view">
+<option value="home">Phối cảnh</option><option value="front">Mặt A · Trước</option><option value="rear">Mặt C · Sau</option><option value="left">Mặt D · Đầu tổ</option><option value="right">Mặt B · Đầu kệ</option><option value="top">Từ trên xuống</option><option value="under">Từ dưới lên</option><option value="nest">Bên trong tổ</option><option value="bath">Khoang tắm</option><option value="feeding">Trạm ăn uống</option><option value="custom" hidden>Góc tự do</option>
+</select>
+<button class="control" id="rotate" aria-pressed="false" title="Tự xoay 360°"><span aria-hidden="true">⟳</span> Tự xoay</button>
+<button class="control" id="roof" aria-pressed="true">Mái &amp; kho</button>
+<button class="control" id="walls" aria-pressed="true">Vách ngoài</button>
+<span class="grow"></span>
+<button class="control" id="dims" aria-pressed="true"><span aria-hidden="true">↔</span> Kích thước</button>
+</div>
+<div id="tip" class="tip" hidden></div>
+<div class="stage-bottom"><div class="hint"><span class="desktop">Kéo để xoay · Cuộn để phóng · Shift + kéo để dịch · Bấm để ghim</span><span class="compact">Kéo để xoay · Chụm để phóng · Chạm để ghim</span></div><button class="control fit" id="reset" aria-label="Đặt lại góc nhìn" title="Đặt lại góc nhìn">⌂</button></div>
+<div class="problem" id="problem" hidden>Trình duyệt chưa bật WebGL. Hãy mở tệp bằng Chrome hoặc Edge có bật tăng tốc đồ họa.</div>
+</section>
+<aside class="side" aria-label="Bộ phận và kích thước">
+<section class="details" id="details" aria-live="polite"></section>
+<section class="explore" id="explore"><h2 class="section-title">Chọn bộ phận để xem gần</h2></section>
+<div class="actions" aria-label="Bộ phận chuyển động">
+<button class="control" id="door" aria-pressed="false">Mở cửa giữa</button>
+<button class="control" id="nestDoor" aria-pressed="false">Mở cửa tổ</button>
+<button class="control" id="trays" aria-pressed="false">Kéo khay phân</button>
+</div>
+</aside>
+</main>
+<footer class="footer">Đơn vị mm. Cao độ có dấu “+” tính từ sàn F, cách mặt đất 250 mm. Đối chiếu bản vẽ gốc khi gia công.</footer>
+</div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const wood='#ba8a5c', beam='#c89b69', panel='#aa704c', inner='#ddab7c', perch='#785336', steel='#748989', darkSteel='#526264', mint='#6f8e7d', blue='#73c9c3';
+const parts=[null];
+function part(section,name,size,stats,description,source,tone,center,zoom,angle){
+  const id=parts.length;
+  parts.push({id,section,name,size,stats,description,source,tone,center,zoom,angle});
+  return id;
+}
+const frame='01 · Khung sườn A0', bathSheet='02 · Máng tắm',fruitSheet='03 · Khay đựng trái cây',waterSheet='04 · Bình châm nước tự động',perchSheet='05 · Cụm kê hai đầu cần đậu';
+// Elevations measured from the ground. Floor F is at 250 mm.
+const p3Mid=[663,250+300-15.5,451], p5Mid=[1287,250+310-15.5,451];
+const p5CenterY=p5Mid[1], p6CenterY=250+995-15;
+const p7X=p5Mid[0], p7CenterY=250+745-15;
+// The second end rail is 40 mm high with its top 500 mm above floor F.
+const p8RailTop=500, p8CenterY=250+p8RailTop-20;
+const p8Start=[40,p8CenterY,80], p8End=[40,p8CenterY,820], p8Mid=[351.5,p8CenterY,450];
+const P={
+ post:part('Khung và mái','Trụ T1','80 × 80',[['Tiết diện','80 × 80'],['Dài gỗ','1.720'],['Số trụ','8']],'Mỗi trụ có chân tăng M12. Nóc khung ở cao độ 1.750 tính từ đất.',frame,wood,[663,940,40],2450,-.37),
+ floor:part('Khung và mái','Đà sàn D1–D6','F +250',[['D1','60 × 80'],['D3','50 × 80'],['D5 / D6','40 × 60']],'Mặt sàn F cao 250 so với đất. D6 đỡ ván lót máng tắm.',frame,beam,[975,250,450],2250,-.43),
+ rail:part('Khung và mái','Giằng và đà nóc','40 × 60',[['Giằng','40 × 60'],['Đà nóc','50 × 80'],['D4 dài','820']],'Giằng G1–G4 giữ các nan. Đà nóc D2, D4 liên kết hai khung mặt A và C.',frame,beam,[975,1380,450],2350,-.42),
+ bars:part('Khung và mái','Nan inox 316','Ø4 / Ø6',[['Nan vách','Ø4'],['Nan sàn','Ø6'],['Khe nan','≤ 15']],'Hai sàn nan nằm dưới khoang 2 và 3. Có thể ẩn vách ngoài để quan sát các cụm bên trong.',frame,steel,[975,860,450],2030,-.41),
+ roof:part('Khung và mái','Khung mái cong','2.350 × 1.250',[['Phủ bì','2.350 × 1.250'],['Cao tổng','2.360'],['Mái sau','35°']],'Mái trước cong 22° → 36°, có hai đầu đao. Cao độ 2.360 tính từ đất gồm phần đỉnh theo A0. Mô hình thể hiện khung mái trần.',frame,beam,[975,2040,365],2500,-.53),
+ store:part('Khung và mái','Kho và cửa hồi','480 × 210',[['Ô cửa hồi','480 × 210'],['Sàn kho','1.870 × 760'],['Cao sàn','1.795']],'Vách ngăn chia kho 1 dài 570 và kho 2–3 dài 1.285. Cao độ sàn kho tính từ đất.',frame,inner,[975,1840,450],2170,.62),
+ door:part('Cửa, tổ và vệ sinh','Cửa giữa · Khoang 2','538 × 824',[['Ô cửa','544 × 830'],['Cánh','538 × 824'],['Lọt lòng','524 × 818']],'Cánh bản lề phía trụ 2A mở ra ngoài. Ba bản lề và một chốt.',frame,mint,[975,900,0],1540,-.33),
+ nest:part('Cửa, tổ và vệ sinh','Hộp tổ · Khoang 1','543 × 740 × 470',[['Dài lòng','543'],['Sâu lòng','740'],['Cao lòng','470']],'Sàn tổ trên cao độ +1020. Vách hai lớp gỗ 15 và 12, kẹp bần 20.',frame,panel,[351.5,1490,450],1620,-.85),
+ nestDoor:part('Cửa, tổ và vệ sinh','Cửa vệ sinh tổ · V8','734 × 294',[['Ô cửa','740 × 300'],['Cánh','734 × 294'],['Dày','47']],'Cửa ở đầu hồi D. Hai bản lề và một chốt.',frame,panel,[0,1460,450],1360,-1.15),
+ nestHole:part('Cửa, tổ và vệ sinh','Ống lót lỗ tổ · V9','Ø100',[['Đường kính','Ø100'],['Ngoài','Ø120'],['Dài','80']],'Hai lỗ nhìn sang khoang 2, tâm +1255. Lỗ thông gió Ø12, tâm +1390.',frame,inner,[670,1505,450],1300,1.0),
+ tray:part('Cửa, tổ và vệ sinh','Khay hứng phân · KH','530 × 800 × 40',[['Rộng','530'],['Sâu','800'],['Cao','40']],'Hai khay inox 304 dày 0,8, rút về phía mặt A dưới khoang 2 và 3.',frame,steel,[1290,145,350],2350,-.45),
+ guide:part('Cửa, tổ và vệ sinh','Ray khay phân · RV','900 mm',[['Dài','900'],['Tiết diện','20 × 20 × 2'],['Cao mặt ray','124']],'Bốn ray inox 304. Mặt ray cao 124 so với đất.',frame,darkSteel,[1287,122,430],1950,-.5),
+ bath:part('Máng tắm và cấp xả','Máng tắm mica','700 × 520 × 120',[['Dài A → C','700'],['Ngang','520'],['Cao','120']],'Mica dày 5. Miệng 624 × 444, vành 38. Lỗ cấp Ø14 và lỗ xả Ø32. Mặt nước tối đa +50.',bathSheet,blue,[351.5,314,450],1450,-.21),
+ wedge:part('Máng tắm và cấp xả','Ván V7 và nêm N7','720 × 540',[['Ván','720 × 540'],['Dày ván','20'],['Dốc','1,5°']],'Hai nêm 40 × 720, dày 24 ở mặt A và 5 ở mặt C. Ván khoét Ø45 cho lỗ xả.',bathSheet,inner,[351.5,253,450],1240,-.68),
+ bathPipe:part('Máng tắm và cấp xả','Đường cấp và xả máng','Ø8 / DN20',[['Cấp','Ø8'],['Xả đáy','Ø32'],['Ống PVC','Ø27']],'Đường cấp vào đầu A. Van bi điện DN20 12 V ở đường xả hướng mặt C. Đường ống biểu diễn theo sơ đồ.',bathSheet,blue,[351.5,212,650],1350,-1.9),
+ shelf:part('Trạm ăn uống · Khoang 3','Kệ K1 và ván K2','453 × 175',[['Kệ K1','453 × 175 × 40'],['Ván K2','453 × 200 × 20'],['Mặt kệ','+540']],'K1 khoét hai lỗ đặt khay. K2 có hai hốc cảm biến và có thể ẩn cùng vách ngoài.',frame,wood,[1678,825,110],985,.47),
+ feed:part('Trạm ăn uống · Khoang 3','Khay ăn inox','120 × 60 × 60',[['Thân','120 × 60'],['Cao','60'],['Vành','136 × 76']],'Khay lọt lỗ 121 × 61, tâm x 400 và y 117 tại kệ K1. Miệng cao +560.',frame,steel,[1727,800,117],460,.55),
+ fruit:part('Trạm ăn uống · Khoang 3','Khay đựng trái cây','Ø42 × 108',[['Lòng ống','Ø42'],['Nhịp','108'],['Họng','38']],'Ống lưới inox 316 có nắp. Tâm cao +594. Đế 136 × 76 × 3 bắt vào kệ K1.',fruitSheet,steel,[1470,843,117],465,-.44),
+ tank:part('Trạm ăn uống · Khoang 3','Bình nước Mariotte','80 × 90 × 100',[['Ngang','80'],['Sâu','90'],['Cao thân','100']],'Bình mica chữ D dày 4, nằm ngoài K2. Đáy ở +540. Hai cảm biến đặt ở +560 và +620.',waterSheet,blue,[1597,840,-49],500,.34),
+ cup:part('Trạm ăn uống · Khoang 3','Khay uống inox','50 × 50 × 60',[['Thân','50 × 50'],['Cao','60'],['Nước','+548']],'Vành 66 × 66. Miệng +560, đầu ra Ø8 và ống tràn Ø6.',waterSheet,steel,[1598.5,800,117],360,.44),
+ valves:part('Trạm ăn uống · Khoang 3','Van và ống bình nước','3 van · 12 V',[['Điện áp','12 V DC'],['Ống khí','Ø6'],['Ống nước','6 × 9']],'Van 1 nạp và van 2 thông khí ở bên phải bình. Van 3 thường mở dẫn xuống khay.',waterSheet,darkSteel,[1614,790,-70],513,.35),
+ p1:part('Cần đậu và gá inox','P1 · Cần ngủ','Ø30 · +1250',[['Đường kính','Ø30'],['Thân','652'],['Mặt trên','+1250']],'Hai đầu có mộng 20 và 40. Gá tại trụ 3A và 3C.',perchSheet,perch,[1287,1485,450],1300,.48),
+ p2:part('Cần đậu và gá inox','P2 · Cần đón trước tổ','Ø28 × 730',[['Đường kính','Ø28'],['Dài','730'],['Mặt trên','+1090']],'Gác trên hai tay đỡ gỗ ở trụ 2A, 2C, cách miệng lỗ tổ 210.',frame,perch,[880,1326,450],1300,.6),
+ p3:part('Cần đậu và gá inox','P3 · Cần phơi','Ø31 · +300',[['Đường kính','Ø31'],['Thân','652'],['Mặt trên','+300']],'Gá ở trụ 2A và 2C, trên đường đưa máng vào khoang 1.',perchSheet,perch,p3Mid,1300,-.5),
+ p5:part('Cần đậu và gá inox','P5 · Cần thấp','Ø31 · +310',[['Đường kính','Ø31'],['Tâm khoen','+294,5'],['Mặt trên','+310']],'Cung Nhân Lộc. Gá tại trụ 3A và 3C, thân dài 652 mm.',perchSheet,perch,p5Mid,1300,.5),
+ pu:part('Cần đậu và gá inox','Cần chữ U · K1','Ø30 · +480',[['Đường kính','Ø30'],['Tim hai chân','471,5'],['Mặt trên','+480']],'Hai chân dài 108, góc R40. Dùng đai ĐG-K ở giằng +500 mặt A.',perchSheet,perch,[1598.5,715,175],900,.58),
+ p6:part('Cần đậu và gá inox','P6 · Cành cong','Ø30 · +995',[['Cành','Ø30'],['Mặt trên','+995'],['Tâm gá','+980']],'Cung Tể Tướng. Hai gá đặt trên giằng +1.000 của mặt B (nan 22) và mặt C (nan 11). Đường cong của cành được minh họa trong mặt bằng.',perchSheet,perch,[1680,p6CenterY,680],980,1.22),
+ sockets:part('Cần đậu và gá inox','Khoen, đai và tấm inox','Ø25,4',[['Khoen','Ø25,4'],['Tấm','60 × 60 × 4'],['Khoen dài','20 / 40']],'Inox 316, có khoen nông, khoen sâu, đai trụ 80 × 80 và đai giằng 60 × 40.',perchSheet,steel,[1287,1485,798],1150,2.25),
+ perchLink:part('Cần đậu và gá inox','Thanh nối P3–P5','Ø31 · 624,1',[['Đường kính','Ø31'],['Tim–tim','624,1'],['Chênh cao','10']],'Nối trung điểm hai cần dọc, đo giữa hai vai thân. Chiều dài là khoảng cách tim–tim, chưa trừ phần giao ở hai mối nối. Đường kính lấy bằng P3 và P5 cho phương án 3D.','Phương án bổ sung',perch,[975,539.5,451],1530,-.1),
+ rearRails:part('Khung và mái','Giằng ngang · Mặt C','40 × 60',[['Tiết diện','40 × 60'],['Khoang 1','4 thanh G1'],['Khoang 2 / 3','5 thanh mỗi khoang']],'Mặt trên giằng ở +250, +500, +750 và +1.000 so với sàn F. Khoang 2 (G2) và khoang 3 (G1) có thêm giằng +1.250 dưới ván V2.',frame,beam,[975,930,855],3600,Math.PI),
+ p7:part('Cần đậu và gá inox','P7 · Cần thẳng A3–C3','Ø30 · +745',[['Đường kính','Ø30'],['Mặt trên','+745'],['Tâm khoen','+730']],'Cung Thiên Tài. Nối thẳng trụ A3 sang C3, ngay phía trên P5. Thân dài 652 mm giữa hai vai.','Phương án bổ sung',perch,[p7X,p7CenterY,450],1300,.5),
+ p8:part('Cần đậu và gá inox','P8 · Cành cong 1A–1C','Ø30 · +495',[['Đường kính','Ø30'],['Mặt trên','+495'],['Vươn từ tim trụ','311,5']],'Gá hai đầu tại trụ 1A và 1C, ngang tim thanh giằng thứ hai tính từ sàn. Mặt trên giằng +500, tâm gá +480. Tim cành tại đỉnh cong trùng trung điểm khoang 1 khi nhìn từ trên.','Phương án bổ sung',perch,p8Mid,1590,-.4)
+};
+const sub=(a,b)=>a.map((v,i)=>v-b[i]), add=(a,b)=>a.map((v,i)=>v+b[i]), mul=(a,t)=>a.map(v=>v*t);
+const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0), cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const norm=v=>mul(v,1/(Math.hypot(...v)||1)), mix=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+const batches=new Map(), colors=new Map();
+let layer='base', motion='', opacity=1, warp=null;
+function scope(next,animation,alpha,transform,build){
+  const prior=[layer,motion,opacity,warp];
+  [layer,motion,opacity,warp]=[next,animation,alpha,transform];build();
+  [layer,motion,opacity,warp]=prior;
+}
+function face(points,color,id=0){
+  if(warp)points=points.map(warp);
+  const key=[layer,motion,opacity].join('|');
+  let group=batches.get(key);
+  if(!group){group={layer,motion,opacity,data:[]};batches.set(key,group);}
+  if(!colors.has(color)) colors.set(color,[1,3,5].map(i=>parseInt(color.slice(i,i+2),16)/255));
+  const rgb=colors.get(color);
+  const normal=norm(cross(sub(points[1],points[0]),sub(points[2],points[0])));
+  for(let i=1;i<points.length-1;i++){
+    for(const p of [points[0],points[i],points[i+1]])group.data.push(...p,...normal,...rgb,id);
+  }
+}
+function box(x,y,z,w,h,d,c,id){
+  const a=[x,y,z],b=[x+w,y,z],e=[x+w,y+h,z],f=[x,y+h,z];
+  const g=[x,y,z+d],j=[x+w,y,z+d],k=[x+w,y+h,z+d],l=[x,y+h,z+d];
+  for(const q of [[a,f,e,b],[g,j,k,l],[a,g,l,f],[b,e,k,j],[a,b,j,g],[f,l,k,e]])face(q,c,id);
+}
+function tube(a,b,r,c,id,n=10,r2=r,inside=0){
+  const axis=norm(sub(b,a)),u=norm(cross(axis,Math.abs(axis[1])>.8?[1,0,0]:[0,1,0])),v=cross(axis,u);
+  const ring=(q,radius,i)=>add(q,add(mul(u,Math.cos(i*2*Math.PI/n)*radius),mul(v,Math.sin(i*2*Math.PI/n)*radius)));
+  for(let i=0;i<n;i++){
+    const p=ring(a,r,i),q=ring(a,r,i+1),s=ring(b,r2,i),t=ring(b,r2,i+1);
+    face([p,q,t,s],c,id);
+    if(inside){const ap=ring(a,inside,i),aq=ring(a,inside,i+1),bs=ring(b,inside,i),bt=ring(b,inside,i+1);
+      face([ap,bs,bt,aq],c,id);face([p,ap,aq,q],c,id);face([s,t,bt,bs],c,id);
+    }else{face([a,q,p],c,id);face([b,s,t],c,id);}
+  }
+}
+function line(points,r,c,id,n=8){for(let i=1;i<points.length;i++)tube(points[i-1],points[i],r,c,id,n);}
+function basin(x,y,z,w,h,d,t,rim,c,id){
+  box(x,y,z,w,t,d,c,id);
+  for(const [a,b,k,l] of [[0,0,w,t],[0,d-t,w,t],[0,t,t,d-2*t],[w-t,t,t,d-2*t]])box(x+a,y+t,z+b,k,h-t,l,c,id);
+  if(rim){
+    for(const [a,b,k,l] of [[0,0,w,rim],[0,d-rim,w,rim],[0,rim,rim,d-2*rim],[w-rim,rim,rim,d-2*rim]])box(x+a,y+h-t,z+b,k,t,l,c,id);
+  }
+}
+function grain(x,y,z,w,h,d,c,id,vertical=false){
+  box(x,y,z,w,h,d,c,id);
+  for(let i=1;i<=4;i++){
+    if(vertical){
+      const t=i/5;
+      if(w>=20){const gx=x+w*t;box(gx,y+h*(.07+.12*(i%4)),z-.12,.65,h*(.16+.13*(i%3)),.18,i%2?'#b18458':'#c79565',id);box(gx,y+h*(.27+.09*(i%4)),z+d-.05,.65,h*(.19+.11*(i%3)),.18,'#a7774d',id);}
+      if(d>=20){const gz=z+d*t;box(x-.12,y+h*(.13+.09*(i%4)),gz,.18,h*(.18+.11*(i%3)),.65,'#ad7f52',id);}
+    }else if(w>140){
+      box(x+w*.035*i,y+h*i/5,z-.13,w*(.26+.08*(i%3)),.55,.18,i%2?'#a77449':'#d2a46f',id);
+    }
+  }
+}
+const xs=[0,623,1247,1870], colorsWood=[wood,'#b58255','#be925f','#ae8055'];
+const bays=[[80,543],[703,544],[1327,543]];
+for(let i=0;i<4;i++){
+  for(const z of [0,820]){
+    grain(xs[i],30,z,80,1720,80,colorsWood[i],P.post,true);
+    box(xs[i]+7,1,z+7,66,15,66,darkSteel,P.post);
+    tube([xs[i]+40,15,z+40],[xs[i]+40,30,z+40],6,steel,P.post,10);
+  }
+  box(xs[i]+15,170,40,50,80,820,beam,P.floor);
+  box(xs[i]+15,1670,40,50,80,820,beam,P.rail);
+}
+for(const [i,[x,w]] of bays.entries()){
+  for(const z of [10,830]){
+    grain(x,170,z,w,80,60,beam,P.floor);
+    grain(x,1670,z+5,w,80,50,beam,P.rail);
+  }
+  if(i>0){
+    box(x+w/2-20,190,50,40,60,800,beam,P.floor);
+    for(let j=0;j<35;j++){const z=94.7+j*(710.6/34);tube([x,247,z],[x+w,247,z],3,steel,P.bars,5);}
+  }
+}
+for(const x of [180,480])box(x,170,50,40,60,800,beam,P.floor);
+function barsAcross(x,z,w,y0,y1,count,side=false,id=P.bars){
+  for(let j=0;j<count;j++){
+    const a=(j+1)*w/(count+1),pt=side?[x,y0,z+a]:[x+a,y0,z];
+    tube(pt,[pt[0],y1,pt[2]],2,steel,id,5);
+  }
+}
+scope('walls','',1,null,()=>{
+  for(const [i,[x,w]] of bays.entries()){
+    // A0, mặt đứng C: cao độ tính ở mặt trên thanh, từ sàn F (250 mm).
+    const rearLevels=i===0?[250,500,750,1000]:[250,500,750,1000,1250];
+    for(const level of rearLevels)grain(x,250+level-40,820,w,40,60,beam,P.rearRails);
+    if(i>0)grain(x,1490,852.5,w,190,15,'#caa273',P.rail);
+    barsAcross(x,860,w,236,250+rearLevels.at(-1)-26,28);
+  }
+  for(const [i,[x,w]] of bays.entries()){
+    const z=20;
+    if(i===0){
+      for(const y of [460,710,960,1210])grain(x,y,z,w,40,60,beam,P.rail);
+      barsAcross(x,40,w,236,1210,28);
+    }else if(i===1){
+      for(const y of [460,1330])grain(x,y,z,w,40,60,beam,P.rail);
+      for(const edge of [x,x+w-10])box(edge,500,52,10,830,12,beam,P.rail);
+      barsAcross(x,40,w,236,472,28);
+      grain(x,1370,32,w,300,15,'#d4aa79',P.rail);
+    }else{
+      for(const y of [460,710,960,1210,1460])grain(x,y,z,w,40,60,beam,P.rail);
+      grain(x,1480,z+12,w,190,15,'#caa273',P.rail);
+      barsAcross(x,40,w,236,1480,28);
+    }
+  }
+  for(const [x,isD] of [[20,true],[1870,false]]){
+    for(const y of isD?[460,710,960,1210]:[460,710,960,1210,1460])box(x,y,80,60,40,740,beam,P.rail);
+    if(!isD)box(x+24,1480,80,15,190,740,'#caa273',P.rail);
+    barsAcross(x+20,80,740,236,isD?1210:1480,39,true);
+  }
+});
+scope('door','door',1,null,()=>{
+  const x=706,y=503,z=25,w=538;
+  for(const xx of [x,x+w-40])box(xx,y,z,40,824,30,mint,P.door);
+  for(const yy of [y,y+207,y+457,y+784])box(x+40,yy,z,w-80,40,30,mint,P.door);
+  barsAcross(x+40,40,w-80,y+35,y+794,24,false,P.door);
+  for(const yy of [590,906,1230]){box(x-8,yy,z-5,28,37,6,darkSteel,P.door);tube([x-3,yy-4,z-7],[x-3,yy+42,z-7],4,steel,P.door);}
+  box(x+w-38,933,z-7,50,13,9,darkSteel,P.door);
+});
+scope('nestOutside','',1,null,()=>{
+  for(const z of [38,815])grain(80,1250,z,543,420,47,panel,P.nest);
+  box(27,1570,80,47,100,740,panel,P.nest);
+});
+box(70,1250,70,563,20,760,inner,P.nest);
+scope('nestCeil','',1,null,()=>box(70,1740,70,563,10,760,inner,P.nest));
+function holedWall(x,t,z0,z1,y0,y1,holes,c,id){
+  const lower=holes[0][1],r=holes[0][2];
+  box(x,y0,z0,t,lower-r-y0,z1-z0,c,id);box(x,lower+r,z0,t,y1-(lower+r),z1-z0,c,id);
+  let start=z0;
+  for(const [zc,yc,rad] of holes){
+    box(x,yc-r,start,t,2*r,zc-rad-start,c,id);
+    for(let i=0;i<20;i++){
+      const yy=yc-rad+2*rad*i/20,yn=yc-rad+2*rad*(i+1)/20;
+      const a=Math.sqrt(Math.max(0,rad*rad-(yy-yc)**2)),b=Math.sqrt(Math.max(0,rad*rad-(yn-yc)**2));
+      for(const xx of [x,x+t]){
+        face([[xx,yy,zc-rad],[xx,yy,zc-a],[xx,yn,zc-b],[xx,yn,zc-rad]],c,id);
+        face([[xx,yy,zc+a],[xx,yy,zc+rad],[xx,yn,zc+rad],[xx,yn,zc+b]],c,id);
+      }
+    }
+    start=zc+rad;
+  }
+  box(x,lower-r,start,t,2*r,z1-start,c,id);
+}
+scope('nestDivider','',1,null,()=>{
+  box(623,1210,80,60,40,740,beam,P.rail);
+  holedWall(623,47,80,820,1250,1670,[[326.67,1505,60],[573.33,1505,60]],panel,P.nest);
+  for(const z of [326.67,573.33]){
+    tube([610,1505,z],[690,1505,z],60,inner,P.nestHole,28,60,50);
+    tube([669,1640,z],[673,1640,z],6,darkSteel,P.nestHole,14);
+  }
+});
+scope('nestDoor','nestDoor',1,null,()=>{
+  grain(27,1273,83,47,294,734,panel,P.nestDoor,true);
+  for(const y of [1300,1516]){box(20,y,68,8,24,33,darkSteel,P.nestDoor);tube([20,y-6,82],[20,y+30,82],4,steel,P.nestDoor);}
+  box(19,1420,801,11,16,31,darkSteel,P.nestDoor);
+});
+scope('roof','',1,null,()=>{
+  const profile=z=>2290-(z<=440?(440-z)*.72654-(440-z)**2*.000194:(z-440)*.7002);
+  const timber=z=>profile(z)-80;
+  for(const z of [0,820])grain(-180,1750,z,2310,80,60,beam,P.roof);
+  box(-180,2073,410,2310,80,60,wood,P.roof);
+  for(const x of [633,1257])box(x,1750,420,60,323,60,beam,P.roof);
+  function roofStrip(x,w,zs,top,h,c,id){
+    for(let j=1;j<zs.length;j++){
+      const a=zs[j-1],b=zs[j],ya=top(a),yb=top(b);
+      const p=[x,ya,a],q=[x+w,ya,a],r=[x+w,yb,b],s=[x,yb,b];
+      const pp=add(p,[0,-h,0]),qq=add(q,[0,-h,0]),rr=add(r,[0,-h,0]),ss=add(s,[0,-h,0]);
+      face([p,s,r,q],c,id);face([pp,qq,rr,ss],c,id);face([p,pp,ss,s],c,id);face([q,r,rr,qq],c,id);
+      if(j===1)face([p,q,qq,pp],c,id);
+      if(j===zs.length-1)face([s,ss,rr,r],c,id);
+    }
+  }
+  const front=Array.from({length:19},(_,i)=>-210+i*650/18);
+  const rear=[440,930], ridge=[...front,930];
+  for(const x of [-180,0,318,636,954,1272,1590,1908,2090]){
+    roofStrip(x,40,front,timber,68,beam,P.roof);
+    roofStrip(x,40,rear,timber,73,beam,P.roof);
+    for(const z of [10,825])box(x,1830,z,40,Math.max(18,timber(z+26)-1830),53,wood,P.roof);
+  }
+  for(const z of [-187,-41,106,253,423,601,764,921])box(-180,timber(z),z,2310,22,26,'#d2a673',P.roof);
+  for(const z of [-210,930])grain(-180,z<0?1800:1805,z,2310,100,20,wood,P.roof);
+  for(const x of [-200,2130]){
+    roofStrip(x,20,ridge,profile,120,wood,P.roof);
+    const sweep=[-250,-237,-215,-183,-145,-104,-66,0,70];
+    roofStrip(x,20,sweep,z=>1902+(z< -50 ? 58*((-50-z)/200)**2 : .38*(z+50)),73,'#a8744a',P.roof);
+  }
+});
+scope('loft','',1,null,()=>{
+  grain(40,1775,70,1870,20,760,inner,P.store);
+  for(const x of [30,1905]){
+    const a=70,b=830,h=1795, peak=440;
+    const top=z=>z<=peak?2170-(peak-z)*.58:2170-(z-peak)*.70;
+    for(const [lo,hi] of [[a,210],[690,b]]){
+      for(const xx of [x,x+15])face([[xx,h,lo],[xx,h,hi],[xx,top(hi),hi],[xx,top(lo),lo]],inner,P.store);
+    }
+    box(x,h,210,15,41,480,inner,P.store);
+    box(x,1836,210,15,210,480,mint,P.store);
+    for(const xx of [x,x+15])face([[xx,2046,peak-87],[xx,2046,peak+138],[xx,2170,peak]],inner,P.store);
+    box(x-1,1940,638,18,14,25,steel,P.store);
+  }
+  box(610,1795,70,15,155,760,inner,P.store);
+  for(const xx of [610,625])face([[xx,1950,70],[xx,1950,830],[xx,2150,440]],inner,P.store);
+  box(1245,1795,70,15,150,760,inner,P.store);
+});
+for(const xx of [710,1333]){
+  scope('base','trays',1,null,()=>{
+    basin(xx,124,0,530,40,800,.8,0,'#9faaa3',P.tray);
+    for(const z of [0,800])tube([xx+6,164,z],[xx+524,164,z],3,steel,P.tray);
+    for(const x of [xx,xx+530])tube([x,164,6],[x,164,794],3,steel,P.tray);
+    const x=xx+222;line([[x,145,0],[x,145,-31],[x+86,145,-31],[x+86,145,0]],4,darkSteel,P.tray);
+  });
+  for(const x of [xx-4,xx+516]){
+    box(x,122,0,20,2,900,darkSteel,P.guide);
+    box(x+(x===xx-4?0:18),124,0,2,18,900,steel,P.guide);
+  }
+}
+const tilt=p=>[p[0],p[1]-(p[2]-100)*Math.tan(Math.PI/120),p[2]];
+scope('base','',1,tilt,()=>{
+  box(81.5,254,90,540,20,720,inner,P.wedge);
+  for(const x of [174,470])box(x,230,90,40,24,720,wood,P.wedge);
+});
+scope('base','',.44,tilt,()=>{
+  basin(91.5,274,100,520,120,700,5,38,'#9bdfd3',P.bath);
+});
+scope('base','',.59,null,()=>{
+  box(97,296,106,509,4,688,'#5eaaa6',P.bath);
+});
+tube([351.5,248,760],[351.5,261,760],21,steel,P.bathPipe,20,21,14);
+line([[351.5,248,760],[351.5,169,760],[351.5,155,779],[351.5,149,985]],13.5,'#788782',P.bathPipe,12);
+box(326,149,825,51,32,60,darkSteel,P.bathPipe);
+box(335,180,828,33,27,43,'#607c6b',P.bathPipe);
+line([[351.5,352,105],[351.5,352,20],[351.5,369,-26],[351.5,1794,-26],[351.5,1805,115]],4,'#467d72',P.bathPipe);
+tube([351.5,349,91],[351.5,349,113],7,steel,P.bathPipe,12);
+scope('roof','',1,null,()=>box(320,1795,95,63,47,55,'#6f8172',P.bathPipe));
+const kStart=1327+45; // Inner face of post 3A plus the CT7 edge allowance.
+const kEnd=kStart+453;
+const openings=[[1573,1624,91.5,142.5],[1666.5,1787.5,86.5,147.5]];
+let sx=kStart;
+for(const [x0,x1,z0,z1] of openings){
+  box(sx,750,0,x0-sx,40,175,beam,P.shelf);
+  box(x0,750,0,x1-x0,40,z0,beam,P.shelf);
+  box(x0,750,z1,x1-x0,40,175-z1,beam,P.shelf);
+  sx=x1;
+}
+box(sx,750,0,kEnd-sx,40,175,beam,P.shelf);
+scope('walls','',1,null,()=>grain(kStart,790,0,453,200,20,'#bc8558',P.shelf));
+function insetTray(x,y,z,w,d,id){
+  basin(x-w/2,y,z-d/2,w,60,d,.8,0,'#aebdb5',id);
+  for(const [a,b,k,l] of [[-8,-8,w+16,8],[-8,d,w+16,8],[-8,0,8,d],[w,0,8,d]])box(x-w/2+a,y+39,z-d/2+b,k,2,l,steel,id);
+}
+insetTray(1727,750,117,120,60,P.feed);
+insetTray(1598.5,750,117,50,50,P.cup);
+box(1574.5,796,93,48,2,48,'#67b8af',P.cup);
+tube([1587,760,91],[1587,760,103],4,steel,P.cup);
+line([[1586.5,760,98],[1586.5,770,99],[1586.5,803,102]],3,steel,P.cup);
+box(1402,790,79,136,3,76,steel,P.fruit);
+for(const x of [1413,1527]){
+  box(x-1.5,793,106,3,42,23,steel,P.fruit);
+  tube([x-1.5,844,117],[x+1.5,844,117],27,steel,P.fruit,24,27,24);
+  tube([x-7,844,117],[x+7,844,117],7,steel,P.fruit,10);
+}
+const fPoint=(x,a,r)=>[x,844+r*Math.sin(a),117+r*Math.cos(a)];
+for(const [a,b] of [[111.5,180],[190,339.65]]){
+  for(let j=0;j<=12;j++){
+    const at=(a+(b-a)*j/12)*Math.PI/180;
+    tube(fPoint(1416,at,22.5),fPoint(1524,at,22.5),j%4===0?1.4:.35,steel,P.fruit,5);
+  }
+  for(let j=0;j<21;j++){
+    const x=1417+5.3*j, arc=Array.from({length:17},(_,i)=>fPoint(x,(a+(b-a)*i/16)*Math.PI/180,22.5));
+    line(arc,j%6===0?1.2:.24,steel,P.fruit,5);
+  }
+}
+for(const x of [1402,1530])tube([x,844,117],[x+8,844,117],8,darkSteel,P.fruit,10);
+function dShape(x,y,z,w,d){
+  const r=w/2;
+  return [[x-r,y,z],[x-r,y,z-d+r],...Array.from({length:21},(_,i)=>[x+Math.cos(Math.PI-i*Math.PI/20)*r,y,z-d+r-Math.sin(Math.PI-i*Math.PI/20)*r]),[x+r,y,z]];
+}
+const tankLow=dShape(1597,790,0,80,90),tankHigh=tankLow.map(p=>add(p,[0,100,0]));
+scope('base','',.46,null,()=>{
+  for(let i=0;i<tankLow.length;i++){
+    const j=(i+1)%tankLow.length;
+    if(Math.hypot(...sub(tankLow[i],tankLow[j]))>.01)face([tankLow[i],tankLow[j],tankHigh[j],tankHigh[i]],'#91d4c8',P.tank);
+  }
+  face(tankLow.slice().reverse(),'#a2dbce',P.tank);
+  face(dShape(1597,855,-2,73,83).reverse(),'#5cb9ab',P.tank);
+});
+face(tankHigh.slice().reverse(),'#a7cabe',P.tank);
+for(const x of [1572,1621])tube([x,887,-24],[x,905,-24],7,steel,P.valves);
+box(1554,786,-89,86,3,89,steel,P.tank);
+for(const y of [810,870])box(1586,y-6,-2,20,12,6,'#44665a',P.valves);
+for(const [x,y,z] of [[1664,847,-23],[1664,884,-23],[1610.5,765,-29]]){
+  box(x-16,y-10,z-14,32,20,28,'#71877c',P.valves);
+  box(x-10,y-12,z-27,20,24,16,'#364b43',P.valves);
+  tube([x-20,y,z],[x+20,y,z],6,'#adab83',P.valves);
+}
+line([[1636,801,-35],[1650,801,-35],[1650,780,-35],[1632,765,-29],[1610.5,762,-29],[1610.5,760,91]],4,'#839f8d',P.valves);
+line([[1572,905,-24],[1572,919,-24],[1664,919,-24],[1664,884,-23]],3,'#5a8e7e',P.valves);
+line([[1621,903,-24],[1621,844,-23],[1664,847,-23]],3,'#5a8e7e',P.valves);
+function perchSet(x,y,r,id,collars=true){
+  const z0=125,z1=777;
+  tube([x,y,z0],[x,y,z1],r,perch,id,16);
+  if(collars){
+    box(x-30,y-30,78,60,60,4,steel,P.sockets);
+    box(x-30,y-30,818,60,60,4,steel,P.sockets);
+    for(const [a,b] of [[82,102],[778,818]])tube([x,y,a],[x,y,b],12.7,steel,P.sockets,16,12.7,11.2);
+    tube([x,y,99],[x,y,z0],10.8,perch,id);
+    tube([x,y,z1],[x,y,811],10.8,perch,id);
+  }
+}
+perchSet(1287,1485,15,P.p1);
+perchSet(p3Mid[0],p3Mid[1],15.5,P.p3);
+perchSet(p5Mid[0],p5Mid[1],15.5,P.p5);
+tube(p3Mid,p5Mid,15.5,perch,P.perchLink,16);
+tube([880,1326,85],[880,1326,815],14,perch,P.p2,16);
+for(const z of [83,777])box(623,1272,z,280,40,40,wood,P.p2);
+const u0=1362.75,u1=1834.25,uy=715;
+const uBend=[ [u0,uy,67],[u0,uy,175] ];
+for(let i=1;i<=8;i++){const a=Math.PI-i*Math.PI/16;uBend.push([u0+40+40*Math.cos(a),uy,175+40*Math.sin(a)]);}
+uBend.push([u1-40,uy,215]);
+for(let i=1;i<=8;i++){const a=Math.PI/2-i*Math.PI/16;uBend.push([u1-40+40*Math.cos(a),uy,175+40*Math.sin(a)]);}
+uBend.push([u1,uy,67]);
+line(uBend,15,perch,P.pu,12);
+for(const x of [u0,u1]){
+  box(x-28,713,67,56,38,5,steel,P.sockets);
+  tube([x,715,63],[x,715,85],12.7,steel,P.sockets,16,12.7,11.2);
+}
+const branch=Array.from({length:17},(_,i)=>{
+  const t=i/16;
+  return add(mul([1866,p6CenterY,545],(1-t)**2),add(mul([1500,p6CenterY,568],2*t*(1-t)),mul([1551.3,p6CenterY,818],t**2)));
+});
+line(branch,15,'#806847',P.p6,12);
+box(1866,p6CenterY-18,516,6,38,56,steel,P.sockets);
+box(1523,p6CenterY-18,817,56,38,6,steel,P.sockets);
+tube([1864,p6CenterY,545],[1844,p6CenterY,545],12.7,steel,P.sockets,16,12.7,11.2);
+tube([1551.3,p6CenterY,818],[1551.3,p6CenterY,798],12.7,steel,P.sockets,16,12.7,11.2);
+perchSet(p7X,p7CenterY,15,P.p7);
+const p8Curve=Array.from({length:25},(_,i)=>{
+  const t=i/24;
+  return [p8Start[0]+(p8Mid[0]-p8Start[0])*Math.sin(Math.PI*t),p8CenterY,p8Start[2]+(p8End[2]-p8Start[2])*t];
+});
+line(p8Curve,15,'#806847',P.p8,14);
+for(const z of [p8Start[2],p8End[2]-5])box(20,p8CenterY-18,z,40,36,5,steel,P.p8);
+scope('ground','',.54,null,()=>{
+  for(let i=-6;i<=6;i++){
+    const offset=i*250;
+    box(975+offset,-9,-1050,i===0?2.7:1.1,1,3000,'#9db3a9',0);
+    box(-525,-8,450+offset,3000,1,i===0?2.7:1.1,'#9db3a9',0);
+  }
+});
+const canvas=$('scene'), overlay=$('measure'), stage=$('stage'), tip=$('tip');
+const ctx=overlay.getContext('2d');
+const gl=canvas.getContext('webgl',{alpha:true,antialias:true,premultipliedAlpha:true});
+if(!gl){$('problem').hidden=false;}
+else{
+  const vertex=`
+  attribute vec3 aPos,aNormal,aColor;
+  attribute float aId;
+  uniform vec3 uEye,uRight,uUp,uFront;
+  uniform vec2 uScale,uPivot;
+  uniform vec3 uOffset;
+  uniform vec2 uTurn;
+  varying mediump vec3 vColor,vNormal;
+  varying mediump float vId;
+  vec2 turn(vec2 p){return vec2(p.x*uTurn.x-p.y*uTurn.y,p.x*uTurn.y+p.y*uTurn.x);}
+  void main(){
+    vec3 p=aPos+uOffset;
+    p.xz=turn(p.xz-uPivot)+uPivot;
+    vec3 n=aNormal;n.xz=turn(n.xz);
+    vec3 r=p-uEye;
+    float d=dot(r,uFront);
+    gl_Position=vec4(dot(r,uRight)*uScale.x,dot(r,uUp)*uScale.y,d*1.008368-100.41841,d);
+    vColor=aColor;vNormal=n;vId=aId;
+  }`;
+  const fragment=`
+  precision mediump float;
+  varying vec3 vColor,vNormal;
+  varying float vId;
+  uniform float uPick,uAlpha,uSelected,uIsolated;
+  void main(){
+    if(uIsolated>0.5&&abs(vId-uIsolated)>0.1)discard;
+    if(uPick>0.5){gl_FragColor=vec4(vId/255.0,0.,0.,1.);return;}
+    vec3 n=normalize(vNormal);
+    float l=0.64+0.31*max(dot(n,normalize(vec3(-0.36,0.82,-0.45))),0.)+0.10*max(dot(n,normalize(vec3(0.5,0.25,0.65))),0.);
+    vec3 c=vColor*l;
+    if(uSelected>0.5&&abs(vId-uSelected)<0.1)c=mix(c,vec3(.04,.71,.59),.61);
+    gl_FragColor=vec4(c,uAlpha);
+  }`;
+  function shader(type,source){
+    const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  const program=gl.createProgram();
+  gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);
+  if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));
+  gl.useProgram(program);
+  const attr=['aPos','aNormal','aColor','aId'].map(k=>gl.getAttribLocation(program,k));
+  const uni=Object.fromEntries(['uEye','uRight','uUp','uFront','uScale','uPivot','uOffset','uTurn','uPick','uAlpha','uSelected','uIsolated'].map(k=>[k,gl.getUniformLocation(program,k)]));
+  const meshes=[...batches.values()].map(g=>{
+    const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(g.data),gl.STATIC_DRAW);
+    return {layer:g.layer,motion:g.motion,opacity:g.opacity,buffer,count:g.data.length/10};
+  }).sort((a,b)=>b.opacity-a.opacity);
+  batches.clear();
+  const fbo=gl.createFramebuffer(), pickTex=gl.createTexture(), depth=gl.createRenderbuffer();
+  gl.bindTexture(gl.TEXTURE_2D,pickTex);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+  gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,pickTex,0);
+  gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);
+  gl.disable(gl.DITHER);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);
+  gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
+  const state={roof:true,walls:true,dims:true,rotate:false,door:0,nestDoor:0,trays:0,cut:'',pin:0,hover:0,isolate:false};
+  const pose=(az,el,distance,target=[950,1140,430])=>({az,el,distance,target});
+  const views={
+    home:pose(-.49,.27,4700),front:pose(0,.02,4700),rear:pose(Math.PI,.04,4700),left:pose(-Math.PI/2,.08,4510),
+    right:pose(Math.PI/2,.08,4510),top:pose(0,1.57,4570),under:pose(-.38,-1.54,4050,[975,780,450]),
+    nest:pose(-.95,.59,2050,[351.5,1485,450]), bath:pose(-.22,.55,1660,[351.5,388,450]),feeding:pose(.38,.51,1160,[1652,834,104])
+  };
+  let camera={...views.home,target:[...views.home.target]}, goal=camera, axes, dpr=1, width=1,height=1, fly=false, dirty=true, hoverPending=false, last=0,lastPick=-100;
+  const pointer={x:0,y:0,inside:false}; const pixel=new Uint8Array(4);
+  const toggles=['roof','walls','dims','rotate','door','nestDoor','trays'];
+  const frameStats=[['Dài khung','1.950'],['Sâu khung','900'],['Cao khung','1.750']];
+  function details(id){
+    const p=parts[id];
+    const label=document.createElement('p');label.className='section-title';label.textContent=p?'Kích thước bộ phận':'Kích thước tổng thể';
+    const heading=document.createElement('h2');heading.textContent=p?p.name:'Khung chuồng';
+    const dt=document.createElement('dl');dt.className='stat';
+    for(const [title,value] of (p?p.stats:frameStats)){
+      const item=document.createElement('div'), key=document.createElement('dt'), val=document.createElement('dd');
+      key.textContent=title;val.textContent=value;item.append(key,val);dt.append(item);
+    }
+    const desc=document.createElement('p');desc.className='description';desc.textContent=p?p.description:'Ba khoang với tổ và máng tắm bên trái, cửa giữa và trạm ăn uống bên phải.';
+    const src=document.createElement('p');src.className='source';src.textContent=p?p.source:'01 · Khung sườn A0';
+    $('details').replaceChildren(label,heading,dt,desc,src);
+    if(p){
+      const isolate=document.createElement('button');
+      isolate.className='control isolate';isolate.type='button';isolate.setAttribute('aria-pressed',String(state.isolate));
+      isolate.textContent=state.isolate?'Hiện các bộ phận khác':'Chỉ hiện bộ phận này';
+      isolate.addEventListener('click',()=>{
+        if(state.isolate){state.isolate=false;details(state.pin);dirty=true;}
+        else{focusPart(p);state.isolate=true;details(state.pin);dirty=true;}
+        $('details button')?.focus({preventScroll:true});
+      });
+      $('details').append(isolate);
+    }
+  }
+  details(0);
+  const buckets=new Map(),buttons=new Map();
+  for(const p of parts.slice(1)){
+    if(!buckets.has(p.section)){
+      const group=document.createElement('details');group.className='bucket';
+      const title=document.createElement('summary');title.textContent=p.section;group.append(title);
+      if(['Máng tắm và cấp xả','Trạm ăn uống · Khoang 3'].includes(p.section))group.open=true;
+      $('explore').append(group);buckets.set(p.section,group);
+    }
+    const b=document.createElement('button');b.className='part';b.type='button';b.dataset.part=p.id;
+    const dot=document.createElement('span');dot.className='dot';dot.style.setProperty('--tone',p.tone);
+    const name=document.createElement('span');name.textContent=p.name;
+    const dimension=document.createElement('small');dimension.textContent=p.size;
+    b.append(dot,name,dimension);b.addEventListener('click',()=>focusPart(p));buckets.get(p.section).append(b);buttons.set(p.id,b);
+  }
+  function setPin(id){
+    if(!id)state.isolate=false;
+    buttons.get(state.pin)?.classList.remove('active');
+    state.pin=id;buttons.get(id)?.classList.add('active');
+    details(id);dirty=true;
+  }
+  function setSwitch(key,value){
+    state[key]=typeof state[key]==='number'?Number(value):value;
+    $(key).setAttribute('aria-pressed',String(Boolean(value)));dirty=true;
+    if(key==='door')$(key).textContent=value?'Đóng cửa giữa':'Mở cửa giữa';
+    if(key==='nestDoor')$(key).textContent=value?'Đóng cửa tổ':'Mở cửa tổ';
+    if(key==='trays')$(key).textContent=value?'Đẩy khay phân vào':'Kéo khay phân';
+    if(key==='dims'){if(!value){tip.hidden=true;state.hover=0;canvas.classList.remove('hit');}else hoverPending=true;}
+  }
+  function flight(p){
+    const az=camera.az+Math.atan2(Math.sin(p.az-camera.az),Math.cos(p.az-camera.az));
+    goal={...p,az,target:[...p.target]};fly=true;dirty=true;
+  }
+  function setView(key){
+    const p=views[key];if(!p)return;
+    if(state.isolate){state.isolate=false;details(state.pin);}
+    state.cut=key==='nest'?'nest':'';
+    setSwitch('rotate',false);
+    if(['home','front','rear','left','right'].includes(key)){setSwitch('roof',true);setSwitch('walls',true);}
+    if(['top','nest','bath','feeding','under'].includes(key))setSwitch('roof',false);
+    if(['nest','bath','feeding'].includes(key)){setSwitch('walls',false);setSwitch('door',false);}
+    if(key==='nest')setSwitch('nestDoor',false);
+    if(key==='home'){
+      for(const id of ['door','nestDoor','trays'])setSwitch(id,false);
+      setPin(0);
+    }
+    $('view').value=key;flight(p);
+  }
+  function focusPart(p){
+    setSwitch('rotate',false);
+    state.cut=p.id===P.nest||p.id===P.nestHole?'nest':'';
+    if([P.roof,P.store].includes(p.id))setSwitch('roof',true);
+    else if(p.id!==P.post)setSwitch('roof',false);
+    setSwitch('walls',[P.post,P.rail,P.rearRails,P.bars,P.shelf,P.door,P.tank,P.valves].includes(p.id));
+    if([P.nest,P.nestHole,P.nestDoor].includes(p.id))setSwitch('nestDoor',false);
+    if(p.id===P.door)setSwitch('door',false);
+    if(p.id===P.tray)setSwitch('trays',true);
+    $('view').value='custom';
+    setPin(p.id);
+    const low=[P.tray,P.guide,P.bathPipe,P.floor].includes(p.id);
+    let target=p.center;
+    if(p.id===P.tray)target=[1290,150,-425];
+    flight(pose(p.angle,p.id===P.rearRails?.02:low?.08:p.id===P.bath?.57:.42,p.zoom,target));
+  }
+  $('view').addEventListener('change',()=>setView($('view').value));
+  $('reset').addEventListener('click',()=>setView('home'));
+  for(const id of toggles)$(id).addEventListener('click',()=>{
+    if(id==='rotate'){fly=false;$('view').value='custom';}
+    if(id==='door'&&!state.door)setSwitch('walls',true);
+    if(id==='nestDoor'){state.cut='';if(!state.nestDoor)flight(pose(-1.06,.24,1930,[310,1410,400]));$('view').value='custom';}
+    if(id==='trays'&&!state.trays){flight(pose(-.24,.18,2500,[1190,490,30]));$('view').value='custom';}
+    setSwitch(id,!state[id]);hoverPending=true;
+  });
+  const motionValues={door:0,nestDoor:0,trays:0};
+  const angleAndShift=name=>name==='door'?[-motionValues.door*1.67,[703,20],[0,0,0]]
+    :name==='nestDoor'?[motionValues.nestDoor*1.62,[21,82],[0,0,0]]
+    :name==='trays'?[0,[0,0],[0,0,-810*motionValues.trays]]
+    :[0,[0,0],[0,0,0]];
+  function move3(p,name){
+    const [a,[x,z],shift]=angleAndShift(name),c=Math.cos(a),s=Math.sin(a);
+    return add([x+(p[0]-x)*c-(p[2]-z)*s,p[1],z+(p[0]-x)*s+(p[2]-z)*c],shift);
+  }
+  function visible(g){
+    switch(g.layer){
+      case 'roof':case 'loft':return state.roof;
+      case 'walls':return state.walls;
+      case 'door':return state.walls||state.door>0||motionValues.door>.005;
+      case 'ground':return camera.el>-.03;
+      case 'nestOutside':case 'nestCeil':return state.cut!=='nest';
+      case 'nestDoor':return state.cut!=='nest'||state.nestDoor>0;
+      default:return true;
+    }
+  }
+  function resize(){
+    const rect=canvas.getBoundingClientRect();
+    width=rect.width;height=rect.height;dpr=Math.min(1.75,devicePixelRatio||1);
+    if(!width||!height)return;
+    canvas.width=overlay.width=Math.round(width*dpr);canvas.height=overlay.height=Math.round(height*dpr);
+    gl.bindTexture(gl.TEXTURE_2D,pickTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,canvas.width,canvas.height,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,canvas.width,canvas.height);
+    dirty=true;
+  }
+  new ResizeObserver(resize).observe(stage);resize();
+  function orient(){
+    const {az,el,distance,target}=camera;
+    const offset=[Math.sin(az)*Math.cos(el),Math.sin(el),-Math.cos(az)*Math.cos(el)];
+    const eye=add(target,mul(offset,distance));
+    const front=mul(offset,-1),right=[Math.cos(az),0,Math.sin(az)],up=cross(front,right);
+    const sy=2.67*Math.min(1,width/height/.88),sx=sy*height/width;
+    axes={eye,front,right,up,sx,sy};
+  }
+  function project(p){
+    const {eye,right,up,front,sx,sy}=axes,r=sub(p,eye),d=dot(r,front);
+    if(d<51)return null;
+    return [width/2*(1+dot(r,right)*sx/d),height/2*(1-dot(r,up)*sy/d)];
+  }
+  function paint(pick){
+    gl.bindFramebuffer(gl.FRAMEBUFFER,pick?fbo:null);gl.viewport(0,0,canvas.width,canvas.height);
+    gl.clearColor(0,0,0,0);gl.depthMask(true);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    gl.uniform3fv(uni.uEye,axes.eye);gl.uniform3fv(uni.uFront,axes.front);gl.uniform3fv(uni.uRight,axes.right);gl.uniform3fv(uni.uUp,axes.up);
+    gl.uniform2f(uni.uScale,axes.sx,axes.sy);gl.uniform1f(uni.uPick,pick?1:0);
+    gl.uniform1f(uni.uSelected,state.isolate?0:state.hover||state.pin);
+    gl.uniform1f(uni.uIsolated,state.isolate?state.pin:0);
+    gl.disable(gl.BLEND);
+    for(const g of meshes){
+      if((!state.isolate&&!visible(g))||(pick&&g.layer==='ground'))continue;
+      if(!pick&&g.opacity<1){gl.enable(gl.BLEND);gl.depthMask(false);}
+      const [a,pivot,offset]=angleAndShift(g.motion);
+      gl.uniform2f(uni.uTurn,Math.cos(a),Math.sin(a));gl.uniform2fv(uni.uPivot,pivot);gl.uniform3fv(uni.uOffset,offset);
+      gl.uniform1f(uni.uAlpha,g.opacity);
+      gl.bindBuffer(gl.ARRAY_BUFFER,g.buffer);
+      for(let i=0;i<attr.length;i++){gl.enableVertexAttribArray(attr[i]);gl.vertexAttribPointer(attr[i],i===3?1:3,gl.FLOAT,false,40,i*12);}
+      gl.drawArrays(gl.TRIANGLES,0,g.count);
+    }
+    gl.depthMask(true);
+  }
+  function readPointer(){
+    if(!pointer.inside||pointer.x<0||pointer.y<0||pointer.x>=width||pointer.y>=height)return 0;
+    paint(true);
+    gl.readPixels(Math.min(canvas.width-1,Math.floor(pointer.x*dpr)),Math.max(0,canvas.height-1-Math.floor(pointer.y*dpr)),1,1,gl.RGBA,gl.UNSIGNED_BYTE,pixel);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+    return parts[pixel[0]]?pixel[0]:0;
+  }
+  function tooltip(){
+    const p=parts[state.hover];
+    tip.hidden=!(state.dims&&p&&pointer.inside);
+    if(tip.hidden)return;
+    const title=document.createElement('b'),value=document.createElement('span');
+    title.textContent=p.name;value.textContent=p.stats.map(([k,v])=>k+' '+v).join(' · ');
+    tip.replaceChildren(title,value);
+    tip.style.left=Math.max(6,Math.min(width-tip.offsetWidth-7,pointer.x+14))+'px';
+    tip.style.top=Math.max(6,Math.min(height-tip.offsetHeight-9,pointer.y+15))+'px';
+  }
+  const dimLines={
+    [P.bath]:[
+      [[637,380,100],[637,362,800],'700'],[[91.5,405,815],[611.5,405,815],'520'],[[631,274,100],[631,394,100],'120']],
+    [P.roof]:[
+      [[-200,2360,440],[2150,2360,440],'2.350'],[[-238,1910,-250],[-238,1910,1000],'1.250'],[[-270,0,440],[-270,2360,440],'2.360']],
+    [P.door]:[
+      [[706,481,22],[1244,481,22],'538'],[[1266,503,22],[1266,1327,22],'824']],
+    [P.nest]:[
+      [[80,1278,108],[623,1278,108],'543'],[[90,1278,80],[90,1278,820],'740'],[[92,1270,802],[92,1740,802],'470']],
+    [P.nestDoor]:[
+      [[15,1250,83],[15,1250,817],'734'],[[15,1273,832],[15,1567,832],'294']],
+    [P.tray]:[
+      [[710,188,0],[1240,188,0],'530'],[[686,165,0],[686,165,800],'800']],
+    [P.guide]:[[[697,114,0],[697,114,900],'900']],
+    [P.feed]:[[[1667,824,72],[1787,824,72],'120'],[[1801,815,87],[1801,815,147],'60']],
+    [P.cup]:[[[1573.5,825,88],[1623.5,825,88],'50'],[[1563,815,92],[1563,815,142],'50']],
+    [P.fruit]:[[[1416,887,117],[1524,887,117],'108']],
+    [P.tank]:[
+      [[1557,918,-55],[1637,918,-55],'80'],[[1541,892,-90],[1541,892,0],'90'],[[1543,790,-89],[1543,890,-89],'100']],
+    [P.p1]:[[[1287,1520,125],[1287,1520,777],'652']],
+    [P.p2]:[[[880,1358,85],[880,1358,815],'730']],
+    [P.p3]:[[[663,570,125],[663,570,777],'652']],
+    [P.p5]:[[[1287,p5CenterY+36.5,125],[1287,p5CenterY+36.5,777],'652']],
+    [P.perchLink]:[[add(p3Mid,[0,34,0]),add(p5Mid,[0,34,0]),'624,1']],
+    [P.p7]:[[[p7X,p7CenterY+35,125],[p7X,p7CenterY+35,777],'652']],
+    [P.p8]:[[[40,p8CenterY+35,450],add(p8Mid,[0,35,0]),'311,5']],
+    [P.pu]:[[[u0,690,152],[u1,690,152],'471,5']],
+    [P.post]:[[[610,30,0],[610,1750,0],'1.720']]
+  };
+  const dimMotion={[P.door]:'door',[P.nestDoor]:'nestDoor',[P.tray]:'trays'};
+  function dimension(a,b,label){
+    if(!a||!b)return;
+    const len=Math.hypot(b[0]-a[0],b[1]-a[1]);
+    if(len<29||len>Math.hypot(width,height)*1.05)return;
+    const m=mix(a,b,.5);
+    if(m[0]<24||m[0]>width-24||m[1]<56||m[1]>height-40)return;
+    const dir=mul(sub(b,a),1/len),n=[-dir[1],dir[0]];
+    ctx.lineCap='round';ctx.lineJoin='round';
+    ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);
+    for(const [p,t] of [[a,1],[b,-1]]){
+      ctx.moveTo(...add(p,add(mul(dir,7*t),mul(n,3.1))));
+      ctx.lineTo(...p);ctx.lineTo(...add(p,add(mul(dir,7*t),mul(n,-3.1))));
+    }
+    ctx.lineWidth=3.5;ctx.strokeStyle='#fffdf4';ctx.stroke();ctx.lineWidth=1.25;ctx.strokeStyle='#125e4d';ctx.stroke();
+    ctx.font='650 11px system-ui';const w=ctx.measureText(label).width+14;
+    ctx.fillStyle='#fafff7';ctx.beginPath();ctx.roundRect(m[0]-w/2,m[1]-9,w,18,5);ctx.fill();
+    ctx.strokeStyle='#4b8e7b';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle='#144b3d';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,m[0],m[1]+.25);
+  }
+  function guides(){
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
+    if(!state.dims)return;
+    const id=state.hover||state.pin, p=parts[id];
+    if(!p)return;
+    for(const [a,b,label] of dimLines[id]||[])dimension(project(move3(a,dimMotion[id])),project(move3(b,dimMotion[id])),label);
+  }
+  function setPointer(event){
+    const rect=canvas.getBoundingClientRect();
+    pointer.x=event.clientX-rect.left;pointer.y=event.clientY-rect.top;
+    pointer.inside=pointer.x>=0&&pointer.y>=0&&pointer.x<rect.width&&pointer.y<rect.height;
+  }
+  const pointers=new Map();
+  let gesture=null;
+  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+  function manual(){
+    state.rotate=false;$('rotate').setAttribute('aria-pressed','false');$('view').value='custom';fly=false;dirty=true;
+  }
+  function changeZoom(ratio){
+    manual();camera.distance=clamp(camera.distance*ratio,90,16500);
+  }
+  function palm(dx,dy){
+    const factor=2*camera.distance/(height*axes.sy);
+    camera.target=add(camera.target,add(mul(axes.right,-dx*factor),mul(axes.up,dy*factor)));
+  }
+  canvas.addEventListener('pointerdown',e=>{
+    if(e.button>2)return;
+    canvas.setPointerCapture(e.pointerId);setPointer(e);
+    pointers.set(e.pointerId,[e.clientX,e.clientY]);
+    if(pointers.size===1)gesture={drag:false,pan:e.shiftKey||e.button!==0,start:[e.clientX,e.clientY],id:e.pointerId};
+    else if(gesture)gesture.drag=true;
+    tip.hidden=true;canvas.classList.add('drag');
+  });
+  canvas.addEventListener('pointermove',e=>{
+    setPointer(e);
+    if(!pointers.has(e.pointerId)){
+      if(state.dims&&e.pointerType!=='touch')hoverPending=true;
+      return;
+    }
+    const prior=pointers.get(e.pointerId),next=[e.clientX,e.clientY];
+    pointers.set(e.pointerId,next);
+    if(pointers.size>=2){
+      const other=[...pointers].find(([id])=>id!==e.pointerId)[1];
+      changeZoom(Math.max(1,Math.hypot(...sub(prior,other)))/Math.max(1,Math.hypot(...sub(next,other))));
+      if(gesture)gesture.drag=true;
+      return;
+    }
+    if(!gesture)return;
+    if(!gesture.drag&&Math.hypot(...sub(next,gesture.start))<4)return;
+    const [dx,dy]=sub(next,gesture.drag?prior:gesture.start);
+    gesture.drag=true;manual();
+    if(gesture.pan||e.shiftKey)palm(dx,dy);
+    else {camera.az-=dx*.008;camera.el=clamp(camera.el+dy*.008,-1.5707,1.5707);}
+    state.hover=0;
+  });
+  function endPointer(e){
+    const tracked=pointers.delete(e.pointerId);
+    if(!tracked||pointers.size)return;
+    canvas.classList.remove('drag');
+    if(e.type==='pointerup'&&gesture&&!gesture.drag&&!gesture.pan){
+      setPointer(e);orient();const id=readPointer();
+      setPin(id===state.pin?0:id);
+    }
+    gesture=null;
+    hoverPending=e.pointerType!=='touch'&&state.dims;dirty=true;
+  }
+  canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);canvas.addEventListener('lostpointercapture',endPointer);
+  canvas.addEventListener('pointerleave',()=>{pointer.inside=false;state.hover=0;tip.hidden=true;canvas.classList.remove('hit');dirty=true;});
+  canvas.addEventListener('contextmenu',e=>e.preventDefault());
+  canvas.addEventListener('wheel',e=>{e.preventDefault();const delta=e.deltaY*(e.deltaMode?14:1);changeZoom(Math.exp(clamp(delta,-180,180)*.00145));hoverPending=state.dims;},{passive:false});
+  canvas.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){setPin(0);return;}
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','=','-','0'].includes(e.key))return;
+    e.preventDefault();manual();
+    if(e.key==='0'){setView('home');return;}
+    if(e.key==='+'||e.key==='=')changeZoom(.85);
+    if(e.key==='-')changeZoom(1.18);
+    if(e.key==='ArrowLeft')camera.az-=.14;
+    if(e.key==='ArrowRight')camera.az+=.14;
+    if(e.key==='ArrowUp')camera.el=clamp(camera.el+.12,-1.5707,1.5707);
+    if(e.key==='ArrowDown')camera.el=clamp(camera.el-.12,-1.5707,1.5707);
+  });
+  function frameLoop(time){
+    const dt=Math.min((time-last)||16,36);last=time;
+    const t=1-Math.pow(.83,dt/16.7);
+    let changing=false;
+    if(state.rotate&&!pointers.size){camera.az+=dt*.00036;changing=true;}
+    if(fly){
+      for(const key of ['az','el','distance'])camera[key]+=(goal[key]-camera[key])*t;
+      camera.target=mix(camera.target,goal.target,t);
+      if(Math.abs(camera.az-goal.az)+Math.abs(camera.el-goal.el)<.001&&Math.abs(camera.distance-goal.distance)+Math.hypot(...sub(camera.target,goal.target))<1){
+        camera={...goal,target:[...goal.target]};fly=false;
+      }
+      changing=true;
+    }
+    for(const id of ['door','nestDoor','trays']){
+      if(motionValues[id]===state[id])continue;
+      motionValues[id]+= (state[id]-motionValues[id])*t*.77;
+      if(Math.abs(motionValues[id]-state[id])<.002)motionValues[id]=state[id];
+      changing=true;
+    }
+    if(dirty||changing||hoverPending){
+      orient();
+      if(state.dims&&!pointers.size&&pointer.inside&&(hoverPending||dirty||(changing&&time-lastPick>75))){
+        state.hover=readPointer();lastPick=time;
+        canvas.classList.toggle('hit',Boolean(state.hover));tooltip();
+      }
+      paint(false);guides();dirty=false;hoverPending=false;
+    }
+    requestAnimationFrame(frameLoop);
+  }
+  requestAnimationFrame(frameLoop);
+}
+</script>
+</body>
+</html>
